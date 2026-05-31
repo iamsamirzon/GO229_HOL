@@ -22,7 +22,7 @@ The fix: Create a proper `TYPE = SERVICE` user with **Workload Identity Federati
 
 - The Hub identifies `PIPELINE_USER_LEGACY` as a human user with **password-only** (no MFA) configuration  
 - It classifies this as an at-risk user needing remediation  
-- It offers guidance: "Enroll in MFA" or "Convert to a service user with stronger authentication"
+- It offers guidance: "Enroll in MFA" or "Convert to a service user with stronger authentication"  // TODO - It wasn't offering this guidance to me :-(, it just called it a stale user which should either be disabled or covnereted to breakglass
 
 ---
 
@@ -48,6 +48,7 @@ WHERE NAME = 'PIPELINE_USER_LEGACY';
 Notice: `TYPE = PERSON` (default if no type is set up), `HAS_PASSWORD = TRUE`, `HAS_MFA = FALSE`, `HAS_WORKLOAD_IDENTITY = FALSE`.
 
 ---
+// TODO - I came here without setting up my Github Fork..but I have to give my Repo name here... should we put parts of  Step 4 up here
 
 ## Step 3: Create the WIF Replacement — Zero Credentials
 
@@ -79,6 +80,7 @@ GRANT ROLE PIPELINE_SVC_ROLE TO USER GITHUB_PIPELINE_SVC;
 
 ```sql
 -- Verify the workload identity configuration
+-- TODO This below command does not display the type Service.. you perhaps want to run the entire command DESCRIBE USER GITHUB_PIPELINE_SVC;
 SHOW USER WORKLOAD IDENTITY AUTHENTICATION METHODS FOR USER GITHUB_PIPELINE_SVC;
 ```
 
@@ -105,6 +107,7 @@ SHOW USER WORKLOAD IDENTITY AUTHENTICATION METHODS FOR USER GITHUB_PIPELINE_SVC;
 
 ### The Workflow File
 
+//  TODO - Do we have to crearte the file.. did the file not get created as part of Fork?
 Create `.github/workflows/snowflake-connect.yml`:
 
 ```
@@ -149,6 +152,16 @@ jobs:
 | ✅ Connected without credentials! Payments count: 3  |
 +------------------------------------------------------+
 ```
+
+// TODO - Did not work for me - No file matched to [/home/runner/work/hol_test/hol_test/**/*requirements*.txt,/home/runner/work/hol_test/hol_test/**/*requirements*.in,/home/runner/work/hol_test/hol_test/**/*constraints*.txt,/home/runner/work/hol_test/hol_test/**/*constraints*.in,/home/runner/work/hol_test/hol_test/**/pyproject.toml,/home/runner/work/hol_test/hol_test/**/uv.lock,/home/runner/work/hol_test/hol_test/**/*.py.lock]. The cache will never get invalidated. Make sure you have checked out the target repository and configured the cache-dependency-glob input correctly.
+
+// TODO - Did I fat figner anything, here is my config
+//     WORKLOAD_IDENTITY = (
+//        TYPE    = OIDC
+//       ISSUER  = 'https://token.actions.githubusercontent.com'
+//        SUBJECT = 'repo:iamsamirzon/hol_test:ref:refs/heads/main'
+
+// And my snowflake account variable name was SUMMIT_26_GO229_HKZEEC
 
 **Attendee action**: Fork the lab repo → add `SNOWFLAKE_ACCOUNT` variable → run the workflow → see it authenticate with zero secrets in the YAML.
 
@@ -519,6 +532,7 @@ By default, Snowflake authorizes queries against **all** of a session's granted 
 
 # Module 3 — Automated Security Posture with Trust Center \+ Cortex Code (25 min)
 
+// TODO - The :LEGACY_ANALYST_USER was not created in my account. Let's plan to confirm with all participants that the preprovisioning has worked in their account first
 ## The Narrative
 
 Modules 1 and 2 fixed two specific problems: secretless authentication for the payments pipeline, and least-privilege access for the AI team. But how does NovaCorp's security team know **everything else is in good shape**? Are there other legacy users with passwords? Over-privileged roles nobody remembers creating? Missing network policies? Drift that's accumulated since the last audit?
