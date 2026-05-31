@@ -101,7 +101,7 @@ SHOW USER WORKLOAD IDENTITY AUTHENTICATION METHODS FOR USER GITHUB_PIPELINE_SVC;
 
 2. **A repository variable**: Settings → Secrets and variables → Actions → Variables → New repository variable  
    - Name: `SNOWFLAKE_ACCOUNT`  
-   - Value: your Snowflake account locator (e.g., `pm-pm_dbsec`)
+   - Value: your Snowflake account locator (e.g., `SFSEHOL-SUMMIT_26_GO229_CETTMS`)
 
 ### The Workflow File
 
