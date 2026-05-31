@@ -427,6 +427,11 @@ That's it. Alice can now manage every grant inside `FINANCE_DB.TRANSACTIONS` —
 
 ### Verify the boundary
 
+--say a new role is created for the Payment Ops team and this role needs access to the Finance_DB.Transactions.
+
+USE ROLE ACCOUNTADMIN;
+CREATE ROLE IF NOT EXISTS AI_PAYMENT_OPS_ROLE;
+
 🎭 **Switch to Alice**:
 
 ```sql
