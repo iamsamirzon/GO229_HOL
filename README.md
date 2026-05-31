@@ -343,6 +343,10 @@ GRANT SELECT ON TABLE FINANCE_DB.TRANSACTIONS.CASE_NOTES          TO ROLE ANALYS
 GRANT USAGE ON DATABASE FINANCE_DB TO ROLE ANALYST_ROLE;
 GRANT INHERITED USAGE  ON ALL SCHEMAS IN DATABASE FINANCE_DB TO ROLE ANALYST_ROLE;
 GRANT INHERITED SELECT ON ALL TABLES  IN SCHEMA FINANCE_DB.TRANSACTIONS TO ROLE ANALYST_ROLE;
+
+--If you get an error, ensure the INHERITED GRANTS feature is enabled in your account
+
+alter account set FEATURE_RBAC_INHERITED_GRANTS = 'ENABLED';
 ```
 
 **Three statements. Done.** Every existing table is covered. Every future table is auto-covered. No backfill, no future-grant maintenance, no missed tables.
